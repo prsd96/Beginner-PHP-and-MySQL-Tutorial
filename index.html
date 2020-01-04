@@ -1,165 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Home</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-pink.min.css">
 	<link rel="stylesheet" type="text/css" href="stylecode.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="jquery-3.4.1.js"></script>
+	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-	<h1 id="heading" align="center">Welcome!!</h1>
 
-	<div>
-		<div id="twosection">
-			<div id="signupform">
-				<h3>Sign up Form</h3>
-				<form action="#" name="regform">
+	<h3>Sign up Form</h3>
 
-					<label for="name">Name</label>
-					<input type="text" name="name" id="empname">
-					<br><br>
+	<div id="result"></div>
 
-					<label for="email">Email</label>
-					<input type="email" name="email" id="empemail">
-					<br><br>
+	<label for="name">Name</label>
+	<input type="text" name="name" id="empname">
+	<br><br>
 
-					<label for="password">Password</label>
-					<input type="password" name="pass" id="emppass">
-					<br><br>
+	<label for="email">Email</label>
+	<input type="email" name="email" id="empemail">
+	<br><br>
 
-					<label for="confirmpassword">Confirm Password</label>
-					<input type="password" name="confirmpassword" id="confirmpass">
-					<br><br>
+	<label for="password">Password</label>
+	<input type="password" name="pass" id="emppassword">
+	<br><br>
 
-					<label for="contact">Contact</label>
-					<input type="text" name="contact" id="empcontact">
-					<br><br>
+	<label for="confirmpassword">Confirm Password</label>
+	<input type="password" name="confirmpassword" id="confirmpass">
+	<br><br>
 
-					<button type="button" id="signup" onclick="validateForm()">Sign up</button>
+	<label for="contact">Contact</label>
+	<input type="text" name="contact" id="empcontact">
+	<br><br>
 
-				</form>
-			</div>
+	<button id="button"> Submit </button>
 
-
-			<div id="loginform">
-				<h3>Log in Form</h3>
-				<form action="#" name="regform">
-
-					<label for="name">Name</label>
-					<input type="text" name="name" id="empname">
-					<br><br>
-
-					<label for="email">Email</label>
-					<input type="email" name="email" id="empemail">
-					<br><br>
-
-					<label for="password">Password</label>
-					<input type="password" name="pass" id="emppass">
-					<br><br>
-
-					<button type="button" id="login">Log in</button>
-
-				</form>
-			</div>
-		</div>
-
-
-	</div>
-</div>
-
-
-
-<!-- jquery css -->
-<script type="text/javascript">
-	$("#heading").css("color","orange");
-	$("#signupform, #loginform").css({
-		textAlign: "center",
-	});
-</script>
-
-
-<!-- registration function -->
-<script type="text/javascript">
-	function validateForm()
-	{
-		var chkname = document.forms["regform"]["empname"].value;
-		var chkemail = document.forms["regform"]["empemail"].value;
-		var chkpass = document.forms["regform"]["emppass"].value;
-
-		var samepass = document.forms["regform"]["emppass"].value;
-		var samerepass = document.forms["regform"]["confirmpass"].value;
-
-		if (chkname=="" || chkemail=="" || chkpass=="") 
+	<script type="text/javascript">
+		$('#button').click(function() 
 		{
-			alert("plese do not leave any fields blank..!!");
-		}
-		else
-		{
-			if (samepass != samerepass)
-			{
-				alert("Passwords do not match!!");
-			}
-			else
-			{
-				$.ajax({
-					url: 'signup.php',
-					type: 'POST',
-					date:
-					{
-						empname: $("#empname").val(),
-						empemail: $("#empemail").val(),
-						emppass: $("#emppass").val(),
-						empcontact: $("#empcontact").val()
-					},
-
-					success:function(response)
-					{
-						if(response==1)
-						{
-							alert("Sign up Successful!!");
-						}
-						else
-						{
-							alert("Sign up error!!");
-						}
-					}
-				})
-			}
-		}
-
-	}
-</script>
-
-<!-- login finction -->
-<script type="text/javascript">
-	$(function()
-	{
-		$("#button").click(function(event) 
-		{
-			$.ajax({
-				url: 'login.php',
+			$.ajax
+			({
 				type: 'POST',
-				data: {
-					empname: $("#empname").val(),
-					empemail: $("#empemail").val(),
-					emppass: $("#emppass").val()},
-				success:function(response){
-					if(response==1)
-					{
-						alert("log in successful!!");
-					}
-					else
-					{
-						alert("Error logging user");
-					}
+				url: 'register.php',
+				data: 
+				{ 
+					text1: $('#empname').val(), 
+					text2: $('#empemail').val(), 
+					text3: $('#emppassword').val(), 
+					text4: $('#empcontact').val(), 
+					textxx: $('#confirmpass').val() 
+				},
+
+				success: function(response) 
+				{
+					$('#result').html(response);
 				}
-			})  
+			});
 		});
-	});
-</script>
+	</script>
 
 </body>
 </html>
