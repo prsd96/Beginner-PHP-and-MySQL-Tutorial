@@ -2,64 +2,22 @@
 <html>
 <head>
 	<title>Home</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-pink.min.css">
-	<link rel="stylesheet" type="text/css" href="stylecode.css">
-	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-	<h3>Sign up Form</h3>
+	<center>
+		<h1>Welcome</h1>
 
-	<div id="result"></div>
+		<a href="register.html"><button type="button" class="btn btn-secondary">Register</button></a>
+		<br><br>
+		<a href="login.html"><button type="button" class="btn btn-secondary">Log  in</button></a>
 
-	<label for="name">Name</label>
-	<input type="text" name="name" id="empname">
-	<br><br>
-
-	<label for="email">Email</label>
-	<input type="email" name="email" id="empemail">
-	<br><br>
-
-	<label for="password">Password</label>
-	<input type="password" name="pass" id="emppassword">
-	<br><br>
-
-	<label for="confirmpassword">Confirm Password</label>
-	<input type="password" name="confirmpassword" id="confirmpass">
-	<br><br>
-
-	<label for="contact">Contact</label>
-	<input type="text" name="contact" id="empcontact">
-	<br><br>
-
-	<button id="button"> Submit </button>
-
-	<script type="text/javascript">
-		$('#button').click(function() 
-		{
-			$.ajax
-			({
-				type: 'POST',
-				url: 'register.php',
-				data: 
-				{ 
-					text1: $('#empname').val(), 
-					text2: $('#empemail').val(), 
-					text3: $('#emppassword').val(), 
-					text4: $('#empcontact').val(), 
-					textxx: $('#confirmpass').val() 
-				},
-
-				success: function(response) 
-				{
-					$('#result').html(response);
-				}
-			});
-		});
-	</script>
-
+	</center>
 </body>
 </html>

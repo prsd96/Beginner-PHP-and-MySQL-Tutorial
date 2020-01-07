@@ -2,11 +2,11 @@
 
 require_once('dbcon.php');
 
-$name = $_POST['text1'];
-$email = $_POST['text2'];
-$password = $_POST['text3'];
-$contact = $_POST['text4'];
-$repass = $_POST['textxx'];
+$regname = $_POST['reg1'];
+$regemail = $_POST['reg2'];
+$regpassword = $_POST['reg3'];
+$regcontact = $_POST['reg4'];
+$regrepass = $_POST['regxx'];
 
 
 //check connection
@@ -15,29 +15,34 @@ if ($conn->connect_error)
 	die("Connection failed: ". $conn->connect_error);
 }
 
-if($name == '' || $email == '' || $password == '' || $contact == '')
+if($regname == '' || $regemail == '' || $regpassword == '' || $regcontact == '')
 {
-	$fields = "fill all fields";
-	echo $fields;
+	$emptyfields = "fill all fields";
+	//echo $emptyfields;
+	echo '<div class="alert alert-primary" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$emptyfields.'</div>';
 }
 else
 {
-	if($password != $repass)
+	if($regpassword != $regrepass)
 	{
-		$mismatch = "passwords do not match";
-		echo $mismatch;
+		$mismatchpass = "passwords do not match";
+		//echo $mismatchpass;
+		echo '<div class="alert alert-primary" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$mismatchpass.'</div>';
 	}
 	else
 	{
-		$encryptpassword = md5($password);
+		//$encryptpassword = md5($regpassword);
+		$encryptpassword = $regpassword;
+		
 		//insert query
-		$sql = "INSERT INTO numbers(name,email,password,contact) VALUES('$name','$email','$encryptpassword','$contact')";
+		$sql = "INSERT INTO numbers(name,email,password,contact) VALUES('$regname','$regemail','$encryptpassword','$regcontact')";
 
 		//insert query status
 		if(mysqli_query($conn,$sql))
 		{
-			$done = "successful!!";
-			echo $done;
+			$done = 25;
+			echo 25;
+			
 		}else
 		{
 			echo $conn->error;
@@ -48,4 +53,3 @@ else
 mysqli_close($conn);
 
 ?>
-
