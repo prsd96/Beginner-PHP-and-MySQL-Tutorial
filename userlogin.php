@@ -3,17 +3,17 @@
 session_start();
 require_once('dbcon.php');
 
-$logemail = $_POST['log1'];
-$logpassword = md5($_POST['log2']);
+$loginemail = $_POST['ulog1'];
+$loginpassword = md5($_POST['ulog2']);
 
 
-$sql = "SELECT email,password,active FROM numbers WHERE email='$logemail' AND password='$logpassword' AND active = 'Verified' ";
+$uloginsql = "SELECT email,password FROM numbers WHERE email='$loginemail' AND password='$loginpassword' ";
 
-$result = $conn->query($sql);
+$uloginresult = $conn->query($uloginsql);
 
-if ($result->num_rows > 0) 
+if ($uloginresult->num_rows > 0) 
 {
-	$_SESSION['loginemail'] = $logemail;
+	$_SESSION['userloginemail'] = $loginemail;
 	$done = 25;
 	echo $done;   
 }

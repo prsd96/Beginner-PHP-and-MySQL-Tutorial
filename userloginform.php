@@ -4,6 +4,7 @@
 	<title>Log in</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="stylecode.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,32 +15,32 @@
 	<div class="container" style="width: 50%">
 
 		<br><a href="index.html"><button type="button" class="btn btn-warning">Go back to Home Page</button></a>
-		<a href="register.html"><button type="button" class="btn btn-warning">Register</button></a>
+		<a href="registerform.php"><button type="button" class="btn btn-warning">Register</button></a>
+		<a href="dbdata.php"><button type="button" class="btn btn-warning">Records</button></a>
 		<br><br>
 
-		<h3>Sign up Form</h3>
+		<center>
+			<h3>Sign up Form</h3>
+			<div id="result" style="width:80%;"></div>
+		</center>
 
-		<div id="result" style="width:50%;"></div>
-
-			<div class="form-group">
-				<label for="email">Email:</label>
-				<input type="email" name="email" id="empemail" class="form-control" placeholder="Enter your email">
-			</div>
-
-			<div class="form-group">
-				<label for="password">Password:</label>
-				<input type="password" name="pass" id="emppassword" class="form-control" placeholder="Enter your password">
-			</div>
-
-			<div class="form-group">
-				<center>
-					<button id="loginbutton" class="btn btn-success"> Log in </button>
-				</center>
-			</div>
-
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="emailid" class="form-control" placeholder="Enter your email">
 		</div>
 
+		<div class="form-group">
+			<label for="password">Password:</label>
+			<input type="password" name="pass" id="idpassword" class="form-control" placeholder="Enter your password">
+		</div>
 
+		<div class="form-group">
+			<center>
+				<button id="loginbutton" class="btn btn-success"> Log in </button>
+			</center>
+		</div>
+
+	</div>
 
 	<script type="text/javascript">
 		$('#loginbutton').click(function() 
@@ -47,11 +48,11 @@
 			$.ajax
 			({
 				type: 'POST',
-				url: 'login.php',
+				url: 'userlogin.php',
 				data: 
 				{
-					log1: $('#empemail').val(), 
-					log2: $('#emppassword').val() 
+					ulog1: $('#emailid').val(), 
+					ulog2: $('#idpassword').val() 
 				},
 
 				success: function(response) 
@@ -63,7 +64,7 @@
 					else
 					{
 						alert("log in successful");
-						window.open("index.html","_self");
+						window.open("dashboard.php","_self");
 					}
 					
 				}

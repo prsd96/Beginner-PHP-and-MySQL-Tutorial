@@ -1,12 +1,12 @@
 <?php 
 
+//session_start();
 require_once('dbcon.php');
 
 $regname = $_POST['reg1'];
-$regemail = $_POST['reg2'];
-$regpassword = $_POST['reg3'];
-$regcontact = $_POST['reg4'];
-$regrepass = $_POST['regxx'];
+$regusername = $_POST['reg2'];
+$regemail = $_POST['reg3'];
+$regcontact = $_POST['reg5'];
 
 
 //check connection
@@ -15,7 +15,8 @@ if ($conn->connect_error)
 	die("Connection failed: ". $conn->connect_error);
 }
 
-if($regname == '' || $regemail == '' || $regpassword == '' || $regcontact == '')
+
+if($regname == '' || $regusername == '' || $regemail == '' || $regcontact == '')
 {
 	$emptyfields = "fill all fields";
 	//echo $emptyfields;
@@ -23,29 +24,49 @@ if($regname == '' || $regemail == '' || $regpassword == '' || $regcontact == '')
 }
 else
 {
-	if($regpassword != $regrepass)
+	if (!filter_var($regemail, FILTER_VALIDATE_EMAIL)) 
 	{
-		$mismatchpass = "passwords do not match";
-		//echo $mismatchpass;
-		echo '<div class="alert alert-primary" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$mismatchpass.'</div>';
+		$invalideemail = "Invalid email format!";
+		echo '<div class="alert alert-primary" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$invalideemail.'</div>';
 	}
 	else
 	{
-		//$encryptpassword = md5($regpassword);
-		$encryptpassword = $regpassword;
-		
-		//insert query
-		$sql = "INSERT INTO numbers(name,email,password,contact) VALUES('$regname','$regemail','$encryptpassword','$regcontact')";
+		$uniqueemail = "SELECT email FROM numbers WHERE email='".$regemail."' ";
 
-		//insert query status
-		if(mysqli_query($conn,$sql))
+		$uniqueemailresult = $conn->query($uniqueemail);
+
+		if($uniqueemailresult->num_rows > 0)
 		{
-			$done = 25;
-			echo 25;
-			
-		}else
+			$duplicateemail = "Email already exists, try another one!!";
+			//echo $duplicateemail;
+			echo '<div class="alert alert-primary" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$duplicateemail.'</div>';
+		}
+		else
 		{
-			echo $conn->error;
+			//$_SESSION['unverifiedemail'] = $regemail;
+			$randompassword = rand(1000,5000);
+			$encryptpassword  = md5($randompassword);
+			$hash = md5(rand(0,1000));
+			$active = "Not Verified";
+
+			//insert query
+			$sql = "INSERT INTO numbers(name,username,email,password,contact,hash,active) VALUES('$regname','$regusername','$regemail','$encryptpassword','$regcontact','$hash','$active')";
+
+			//insert query status
+			if(mysqli_query($conn,$sql))
+			{
+				include 'emailverifyuser.php';
+				echo '
+				<script type="text/javascript">
+				alert("Your account has been made, please verify it by clicking the activation link that has been send to your email.");
+				window.open("verifyaccountalert.php","_self");
+				</script>
+				';
+			}
+			else
+			{
+				echo $conn->error;
+			}
 		}
 	}
 }

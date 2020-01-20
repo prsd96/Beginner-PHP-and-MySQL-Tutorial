@@ -1,5 +1,5 @@
-#signupform, #loginform
+#tabledata
 {
-	float: left;
-	width: 50%;
+  /*border-collapse: collapse;*/
+  border: 2px solid black;
 }
