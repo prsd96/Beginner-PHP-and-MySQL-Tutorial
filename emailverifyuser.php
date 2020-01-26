@@ -1,5 +1,9 @@
 <?php
 
+// get IP address in php >= 5.3.0
+$ipadd = getHostByName(getHostName()); 
+//echo "Server IP Address is: $ipadd";
+
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -51,6 +55,9 @@ Please click this link to activate your account:<br>
 <br></p>
 
 ';
+
+ //  '.$ipadd.'/codescodescodes/GitHubProjects/Beginner-PHP-and-MySQL-Tutorial/verifysignup.php?email='.$regemail.'&hash='.$hash.'
+
 
 
 // Content
